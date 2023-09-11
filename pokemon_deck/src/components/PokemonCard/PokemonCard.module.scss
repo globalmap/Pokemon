@@ -1,0 +1,31 @@
+.container {
+  width: 200px;
+  height: min-content;
+  border: solid 1px #cacaca;
+  border-radius: 10px;
+  margin-left: 3rem;
+  margin-bottom: 2rem;
+  cursor: pointer;
+
+  * {
+    width: inherit;
+    height: inherit;
+  }
+}
+
+.container.detailPageCard {
+  width: auto;
+
+  & div {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 1020px) {
+  .container.detailPageCard {
+    margin-left: 0;
+    border: none;
+    border-bottom: solid 1px #cacaca;
+  }
+}
