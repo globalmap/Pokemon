@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev-api": "cd pokemon_api && npm run dev"
+    "dev-api": "cd pokemon_api && npm run dev",
+    "dev-front": "cd pokemon_deck && npm run dev"
   },
   "keywords": [],
   "author": "",
