@@ -1,0 +1,12 @@
+{
+  "name": "pokemon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev-api": "cd pokemon_api && npm run dev"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
