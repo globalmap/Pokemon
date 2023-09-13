@@ -1,6 +1,12 @@
 import { BasicPokemonType, PokemonDetailsData, PokemonType } from "../../types/pokemon.types";
 import { loadingType } from "../../types/basicTypes";
 
+export interface basicType {
+  name: PokemonType,
+  url: string,
+  pokemons: BasicPokemonType[]
+}
+
 export interface PokemonInitialStateType {
   list: BasicPokemonType[],
   loading: loadingType;
@@ -8,11 +14,7 @@ export interface PokemonInitialStateType {
   details: PokemonDetailsData | undefined;
   total: number;
   nextLinkParams: string;
-  types: {
-    name: PokemonType,
-    url: string,
-    pokemons: {name: string}[]
-  }[];
+  types: basicType[];
   filter: {
     type: PokemonType | ""
   }

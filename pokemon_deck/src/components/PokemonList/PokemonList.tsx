@@ -1,4 +1,3 @@
-//@ts-nocheck
 import { useEffect } from 'react';
 import s from "./PokemonList.module.scss";
 import { clearDetails, fetchPokemonTypes, fetchPokemons } from '../../store/slices/pokemonsSlice';
@@ -7,29 +6,19 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import PokemonCard from '../PokemonCard/PokemonCard';
 import { loadingType } from '../../types/basicTypes';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { selectPokemons } from '../../store/selectors/pokemons.selector';
+
+const INITIAL_LIMIT = 60;
 
 const PokemonList = () => {
   const dispatch = useAppDispatch();
-  const pokemons = useAppSelector((state) => {
-    let list = state.pokemons.list;
-    const filter = state.pokemons.filter.type
-
-    if(filter) {
-      const typeObject = state.pokemons.types.find((type) => type.name === filter);
-
-      if(typeObject) {
-        list = typeObject.pokemons;
-      }
-    }
-
-    return list;
-  });
+  const pokemons = useAppSelector(selectPokemons);
   const totalPokemons = useAppSelector((state) => state.pokemons.total);
   const loading = useAppSelector((state) => state.pokemons.loading);
-  
+
   useEffect(() => {
     if (loading === loadingType.IDLE) {
-      dispatch(fetchPokemons("limit=60"));
+      dispatch(fetchPokemons(`limit=${INITIAL_LIMIT}`));
       dispatch(fetchPokemonTypes());
       dispatch(clearDetails());
     }
@@ -38,20 +27,17 @@ const PokemonList = () => {
   return (
     <div className={s.list_container}>
       <InfiniteScroll
-        dataLength={pokemons.length*10}
-        next={() => {
-            dispatch(fetchPokemons(`limit=60&offset=${pokemons.length}`))
-        }}
+        dataLength={pokemons.length}
+        next={() => dispatch(fetchPokemons(`limit=${INITIAL_LIMIT}&offset=${pokemons.length}`))}
         hasMore={pokemons.length !== totalPokemons}
         loader={<h4>Loading...</h4>}
-        style={{display: "flex", flexWrap: "wrap", paddingLeft: "1.5rem"}}
-        endMessage={<p style={{textAlign:'center'}}><b>Yay! You've seen it all!</b></p>}
+        className={s.infiniteScroll} 
+        endMessage={<p className={s.endMessage}><b>Yay! You've seen it all!</b></p>}
       >
-        {pokemons.map((pokemon, index) => (
-          <PokemonCard key={index} name={pokemon.name} />
+        {pokemons.map((pokemon) => (
+          <PokemonCard key={pokemon.name} name={pokemon.name} />
         ))}
       </InfiniteScroll>
-      
     </div>
   );
 };

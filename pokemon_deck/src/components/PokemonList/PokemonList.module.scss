@@ -25,6 +25,16 @@
   }
 }
 
+.infiniteScroll {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 1.5rem;
+}
+
+.endMessage {
+  text-align: center;
+}
+
 
 @media (max-width: 410px) {
   .list_container {

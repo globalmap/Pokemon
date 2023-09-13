@@ -51,4 +51,5 @@ export interface PokemonDetailsData {
     }
   }[];
   sprites: any;
+  sprite: string
 }
