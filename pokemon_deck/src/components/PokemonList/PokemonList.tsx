@@ -26,7 +26,6 @@ const PokemonList = () => {
   });
   const totalPokemons = useAppSelector((state) => state.pokemons.total);
   const loading = useAppSelector((state) => state.pokemons.loading);
-  const error = useAppSelector((state) => state.pokemons.error);
   
   useEffect(() => {
     if (loading === loadingType.IDLE) {
@@ -35,12 +34,6 @@ const PokemonList = () => {
       dispatch(clearDetails());
     }
   }, [loading, dispatch]);
-
-
-
-  if (loading === loadingType.ERROR) {
-    return <p>Error: {error}</p>;
-  }
 
   return (
     <div className={s.list_container}>

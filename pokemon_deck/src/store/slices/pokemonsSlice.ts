@@ -48,7 +48,7 @@ const pokemonsSlice = createSlice({
 
       }
     },
-    clearDetails: (state, action) => {
+    clearDetails: (state) => {
       state.details = undefined
     }
   },

@@ -5,14 +5,24 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import { useAppSelector } from "../../hooks/useAppSelector";
 import { loadingType } from "../../types/basicTypes";
 import Preloader from "../../assets/Prealoader.gif"
+import Error from "../../assets/Error.gif";
 
 
 const MainPage = () => {
   const loading = useAppSelector((state) => state.pokemons.loading);
+  const error = useAppSelector((state) => state.pokemons.error);
 
-    if (loading === loadingType.PENDING) {
+  if (loading === loadingType.PENDING) {
     return <div className={s.preloader}>
       <img src={Preloader} />
+    </div>;
+  }
+
+  
+  if (loading === loadingType.ERROR) {
+    return <div className={s.error}>
+      <img src={Error} alt="" />
+      <p>Error: {error}</p>
     </div>;
   }
   return (

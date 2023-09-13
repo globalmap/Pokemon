@@ -4,8 +4,10 @@
 
   &_back {
     position: absolute;
-    top: 1rem;
+    top: 0;
     left: 6rem;
+    color: #6f1d1d;
+    font-size: 2rem;
   }
 
   &_container {
@@ -71,8 +73,23 @@
   }
 }
 
+.preloader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 @media (max-width: 1020px) {
   .details_container {
     flex-direction: column;
   } 
+
+  .information {
+    padding-left: 0;
+
+    &_stats {
+      width: 65%;
+    }
+  }
 }

@@ -9,7 +9,7 @@ const SearchBar = () => {
   const navigate = useNavigate();
 
   const [value, setValue] = useState("");
-  const [results, setResult] = useState<any[] | undefined>();
+  const [results, setResult] = useState<any[]>([]);
 
   const total = useAppSelector((state) => state.pokemons.total);
 
@@ -32,13 +32,10 @@ const SearchBar = () => {
       pokemonRequest()
     }
     if(value.length === 0) {
-      setResult(undefined)
+      setResult([])
     }
   }, [value])
 
-  if(!results) {
-    return null
-  }
 
   return (
     <div className={s.searchBar_container}>
