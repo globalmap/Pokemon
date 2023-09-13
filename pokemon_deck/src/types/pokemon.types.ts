@@ -1,7 +1,16 @@
+export type PokemonType = "normal" | "fighting" | "flying" | "poison" | "ground" | "rock" | "bug" | "ghost" | "steel" | "fire" | "water" | "grass" | "electric" | "psychic" | "ice" | "dragon" | "dark" | "fairy";
+
 export interface BasicPokemonType {
   name: string;
   url: string;
   poster: string;
+  types: {
+    slot: number;
+    type: {
+      name: PokemonType,
+      url: string
+    }
+  }
 }
 
 interface versionGroupDetailsType{
@@ -37,7 +46,7 @@ export interface PokemonDetailsData {
   types: {
     slot: number,
     type: {
-        name: string,
+        name: PokemonType,
         url: string
     }
   }[];

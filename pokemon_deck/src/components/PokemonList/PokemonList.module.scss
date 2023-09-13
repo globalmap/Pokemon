@@ -2,7 +2,7 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: left;
-  padding: 0 4rem;
+  // padding: 0 4rem;
   
   &::after {
     content: "";
@@ -10,21 +10,26 @@
   }
 }
 
-.paginationContainer {
+.showMoreButton {
+  margin: 2rem;
+  margin-top: 0;
   display: flex;
-  justify-content: center;
-  list-style: none;
-  align-items: baseline;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #838383;
+  transition: all 0.5s ease-out;
+
+  &:hover {
+    background: #000;
+  }
 }
 
-.paginationPage {
-  border: solid 1px #cacaca;
-  padding: 1rem;
-  border-radius: 10px;
-  color: #595959;
-  background: #fff;
-  margin-left: 1rem;
-  cursor: pointer;
+.preloader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @media (max-width: 410px) {

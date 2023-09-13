@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import s from "./Details.module.scss";
 import { useParams, Link } from "react-router-dom";
-import { fetchPokemonData } from "../../../store/slices/pokemonsSlice";
-import { useAppDispatch } from "../../../hooks/useAppDispatch";
-import { useAppSelector } from "../../../hooks/useAppSelector";
-import PokemonCard from "../../PokemonCard/PokemonCard";
+import { fetchPokemonData } from "../../store/slices/pokemonsSlice";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useAppSelector } from "../../hooks/useAppSelector";
+import PokemonCard from "../../components/PokemonCard/PokemonCard";
 
 const Details = () => {
   const dispatch = useAppDispatch();
@@ -27,7 +27,16 @@ const Details = () => {
     <div className={s.details}>
       <Link to="/" className={s.details_back}>Back</Link>
       <div className={s.details_container}>
-        <PokemonCard name={id} />
+        <div>
+          <PokemonCard name={id} />
+          <hr />
+          <h3>Sprites</h3>
+          <hr/>
+          <img src={data.sprites.front_default} />
+          <img src={data.sprites.front_shiny} />
+
+        </div>
+
         <div className={s.information}>
           <h1 className={s.information_name}>{data.name}</h1>
           <hr />

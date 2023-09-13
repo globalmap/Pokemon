@@ -3,7 +3,7 @@
   height: min-content;
   border: solid 1px #cacaca;
   border-radius: 10px;
-  margin-left: 3rem;
+  margin-right: 3rem;
   margin-bottom: 2rem;
   cursor: pointer;
 
@@ -19,6 +19,15 @@
   & div {
     display: flex;
     justify-content: center;
+  }
+}
+
+.infoBlock {
+  display: flex;
+  justify-content: space-around;
+  
+  p {
+    width: min-content;
   }
 }
 
