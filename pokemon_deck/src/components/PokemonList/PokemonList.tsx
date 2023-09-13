@@ -1,15 +1,12 @@
 //@ts-nocheck
 import { useEffect } from 'react';
 import s from "./PokemonList.module.scss";
-import { fetchPokemonTypes, fetchPokemons } from '../../store/slices/pokemonsSlice';
+import { clearDetails, fetchPokemonTypes, fetchPokemons } from '../../store/slices/pokemonsSlice';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import PokemonCard from '../PokemonCard/PokemonCard';
 import { loadingType } from '../../types/basicTypes';
-import SearchBar from '../SearchBar/SearchBar';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import Filter from '../Filter/Filter';
-import Preloader from "../../assets/Prealoader.gif"
 
 const PokemonList = () => {
   const dispatch = useAppDispatch();
@@ -34,46 +31,34 @@ const PokemonList = () => {
   useEffect(() => {
     if (loading === loadingType.IDLE) {
       dispatch(fetchPokemons("limit=60"));
-      dispatch(fetchPokemonTypes())
+      dispatch(fetchPokemonTypes());
+      dispatch(clearDetails());
     }
   }, [loading, dispatch]);
 
-  if (loading === loadingType.PENDING) {
-    return <div className={s.preloader}>
-      <img src={Preloader} />
-    </div>;
-  }
+
 
   if (loading === loadingType.ERROR) {
     return <p>Error: {error}</p>;
   }
 
   return (
-    <div style={{padding: "0 4rem"}}>
-      <div>
-        <SearchBar />
-        <Filter />
-      </div>
-      <div className={s.list_container}>
-        <InfiniteScroll
-          dataLength={pokemons.length*10}
-          next={() => {
-              dispatch(fetchPokemons(`limit=60&offset=${pokemons.length}`))
-          }}
-          hasMore={pokemons.length !== totalPokemons}
-          loader={<h4>Loading...</h4>}
-          style={{display: "flex", flexWrap: "wrap"}}
-          endMessage={<p style={{textAlign:'center'}}><b>Yay! You've seen it all!</b></p>}
-        >
-          {pokemons.map((pokemon, index) => (
-            <PokemonCard key={index} name={pokemon.name} />
-          ))}
-        </InfiniteScroll>
-        
-      </div>
-      {/* <button className={s.showMoreButton} onClick={() => {
-        dispatch(fetchPokemons(`limit=60&offset=${pokemons.length}`))
-      }}>Show More</button> */}
+    <div className={s.list_container}>
+      <InfiniteScroll
+        dataLength={pokemons.length*10}
+        next={() => {
+            dispatch(fetchPokemons(`limit=60&offset=${pokemons.length}`))
+        }}
+        hasMore={pokemons.length !== totalPokemons}
+        loader={<h4>Loading...</h4>}
+        style={{display: "flex", flexWrap: "wrap", paddingLeft: "1.5rem"}}
+        endMessage={<p style={{textAlign:'center'}}><b>Yay! You've seen it all!</b></p>}
+      >
+        {pokemons.map((pokemon, index) => (
+          <PokemonCard key={index} name={pokemon.name} />
+        ))}
+      </InfiniteScroll>
+      
     </div>
   );
 };

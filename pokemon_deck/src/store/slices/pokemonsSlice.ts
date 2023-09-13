@@ -47,6 +47,9 @@ const pokemonsSlice = createSlice({
       state.filter = {...state.filter, type: action.payload.type}
 
       }
+    },
+    clearDetails: (state, action) => {
+      state.details = undefined
     }
   },
   extraReducers: (builder) => {
@@ -80,6 +83,6 @@ const pokemonsSlice = createSlice({
   },
 });
 
-export const { setFilter } = pokemonsSlice.actions;
+export const { setFilter, clearDetails } = pokemonsSlice.actions;
 
 export default pokemonsSlice.reducer;

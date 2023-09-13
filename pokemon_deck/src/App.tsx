@@ -1,12 +1,12 @@
 import { Route, Routes } from "react-router-dom"
-import PokemonList from "./components/PokemonList/PokemonList"
 import Details from "./pages/Details/Details"
+import MainPage from "./pages/MainPage/MainPage"
 
 function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<PokemonList />} />
+      <Route path="/" element={<MainPage />} />
       <Route path="/pokemon/:id" element={<Details />} />
     </Routes>
   )

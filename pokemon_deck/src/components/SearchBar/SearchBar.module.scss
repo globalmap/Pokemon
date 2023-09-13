@@ -72,8 +72,11 @@
         }
       }
     }
+  }
+}
 
-    
-
+@media (max-width: 1000px) {
+  .searchBar_container {
+    width: 100%;
   }
 }

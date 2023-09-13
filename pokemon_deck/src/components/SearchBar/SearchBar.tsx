@@ -36,16 +36,23 @@ const SearchBar = () => {
     }
   }, [value])
 
-  
+  if(!results) {
+    return null
+  }
 
   return (
     <div className={s.searchBar_container}>
       <div className={s.textField}>
-        <input placeholder="Choose your pokemon" value={value} onChange={handleChange} style={results?.length > 0 ? {borderBottomLeftRadius: 0, borderBottomRightRadius: 0} : {}}/>
+        <input 
+          placeholder="Choose your pokemon" 
+          value={value} 
+          onChange={handleChange} 
+          style={results.length > 0 ? {borderBottomLeftRadius: 0, borderBottomRightRadius: 0} : {}}
+        />
       </div>
       <div className={s.result}>
         <ul>
-          {results?.map((pokemon, index) => {
+          {results.map((pokemon, index) => {
             const spriteIsNotFound = !pokemon.sprite;
 
             return (
