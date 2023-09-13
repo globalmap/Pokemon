@@ -5,7 +5,7 @@ import { loadingType } from '../../types/basicTypes';
 import axiosInstance from '../../api/axiosInstance';
 import { PokemonType } from '../../types/pokemon.types';
 
-// Асинхронна дія для завантаження покемонів
+// Asynchronous action for loading pokemons
 export const fetchPokemons = createAsyncThunk('pokemons/fetchPokemons', async (params: string) => {
   const response = await axiosInstance.get(`pokemon/all?${params}`);
   return response.data;
@@ -13,15 +13,13 @@ export const fetchPokemons = createAsyncThunk('pokemons/fetchPokemons', async (p
 
 export const fetchPokemonData = createAsyncThunk("pokemons/details", async (name: string) => {
   const response = await axiosInstance.get(`pokemon/${name}`);
-
   return response.data;
-})
+});
 
 export const fetchPokemonTypes = createAsyncThunk("pokemons/types", async () => {
   const response = await axiosInstance.get("pokemon/type");
-
   return response.data.types;
-})
+});
 
 const initialState: PokemonInitialStateType = {
   list: [],
@@ -73,12 +71,7 @@ const pokemonsSlice = createSlice({
         state.details = action.payload
       })
       .addCase(fetchPokemonTypes.fulfilled, (state, action) => {
-        state.types = action.payload.filter((type: any) => {
-          if(type.pokemons.length === 0) {
-            return false
-          } 
-          return true
-        })
+        state.types = action.payload.filter((type: any) => type.pokemons.length > 0);
       })
   },
 });

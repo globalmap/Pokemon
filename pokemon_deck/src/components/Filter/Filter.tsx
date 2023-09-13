@@ -1,4 +1,3 @@
-import { useState } from "react";
 import s from "./Filter.module.scss";
 import { PokemonType } from "../../types/pokemon.types";
 import { setFilter } from "../../store/slices/pokemonsSlice";
