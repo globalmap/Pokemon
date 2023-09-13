@@ -1,43 +1,54 @@
 import http from 'http';
-import express, { Express } from 'express';
+import express, { Express, Request, Response, NextFunction } from 'express';
 import morgan from 'morgan';
 import pokemonRoutes from "./routes/pokemon.routes";
 
-const router: Express = express();
+const app: Express = express();
 
-/** Logging */
-router.use(morgan('dev'));
-/** Parse the request */
-router.use(express.urlencoded({ extended: false }));
-/** Takes care of JSON data */
-router.use(express.json());
+/** Middleware Configuration */
 
-/** RULES OF OUR API */
-router.use((req, res, next) => {
-    // set the CORS policy
+// Logging middleware for development
+app.use(morgan('dev'));
+
+// Middleware to parse URL-encoded bodies (as sent by HTML forms)
+app.use(express.urlencoded({ extended: false }));
+
+// Middleware to parse incoming JSON bodies
+app.use(express.json());
+
+/** CORS Configuration */
+app.use((req: Request, res: Response, next: NextFunction) => {
+    // Set CORS policy for all origins
     res.header('Access-Control-Allow-Origin', '*');
-    // set the CORS headers
+
+    // Set CORS headers
     res.header('Access-Control-Allow-Headers', 'origin, X-Requested-With,Content-Type,Accept, Authorization');
-    // set the CORS method headers
+
+    // Set CORS method headers if method is OPTIONS
     if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'GET PATCH DELETE POST');
         return res.status(200).json({});
     }
+
     next();
 });
 
 /** Routes */
-router.use('/pokemon', pokemonRoutes);
+app.use('/pokemon', pokemonRoutes);
 
-/** Error handling */
-router.use((req, res, next) => {
+/** Error Handling */
+
+// 404 handler for unmatched routes
+app.use((req: Request, res: Response) => {
     const error = new Error('not found');
-    return res.status(404).json({
+    res.status(404).json({
         message: error.message
     });
 });
 
-/** Server */
-const httpServer = http.createServer(router);
+/** Create and Start the Server */
+
 const PORT = process.env.PORT ?? 8080;
+const httpServer = http.createServer(app);
+
 httpServer.listen(PORT, () => console.log(`The server is running on port ${PORT}`));
